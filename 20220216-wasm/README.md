@@ -71,10 +71,8 @@ val anotherSum = add(3, 4);
 - Wasm はコンパイルして作成する
   - 多くの場合。[手で書く強者](https://www.youtube.com/watch?v=qEq3F9Z8z6w)もいるが… 
   - [テキスト表現](https://developer.mozilla.org/ja/docs/WebAssembly/Understanding_the_text_format)
-- 既存資産を利用できる
-  - ソースコード
-  - ライブラリ
-  - ツール
+- 資産の利用：ソースコード, ライブラリ,ツール
+- [Sonic Boom! Audio Programming on Android and Chrome (Google I/O'19)](https://www.youtube.com/watch?v=-GaD0RCp-Q0)  
 - 例：[Squoosh](https://squoosh.app/), [AutoCad](https://www.youtube.com/watch?v=BfkL3WgOPdI), [Photoshp](https://web.dev/ps-on-the-web/)
 
 ![bg right:25%](./assets/thomas-le-pRJhn4MbsMM-unsplash.jpg)
@@ -277,7 +275,7 @@ _footer: https://github.com/proxy-wasm/spec
 # まとめ
 
 - WebAssembly はモジュール定義
-- 既存資産の再利用が最大の利点
+- 既存資産の再利用が最大の利点  
 - wasm-pack: Rust での Wasm 開発が手軽になる
 - Wasm をどのように使うかは検討が必要
   - メンテナンス性
