@@ -1,0 +1,44 @@
+{
+  "bookendVersion": "v1.0",
+  "shareProviders": [
+    "facebook",
+    "twitter",
+    "email"
+  ],
+  "components": [
+    {
+      "type": "heading",
+      "text": "Reference"
+    },
+    {
+      "type": "small",
+      "title": "ArrayBuffer (on MDN)",
+      "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer"
+    },
+    {
+      "type": "small",
+      "title": "TypedArray (on MDN)",
+      "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/TypedArray"
+    },
+    {
+      "type": "small",
+      "title": "DataView (on MDN)",
+      "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/DataView"
+    },
+    {
+      "type": "small",
+      "title": "Bit operators (on MDN)",
+      "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Bitwise_Operators"
+    },
+    {
+      "type": "small",
+      "title": "JPEG File Interchange Format (JFIF) version 1.02",
+      "url": "https://www.w3.org/Graphics/JPEG/jfif3.pdf"
+    },
+    {
+      "type": "small",
+      "title": "EXIF 2.2 spec (PDF)",
+      "url": "https://www.exif.org/Exif2-2.PDF"
+    }
+  ]
+}

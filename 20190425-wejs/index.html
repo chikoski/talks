@@ -1,0 +1,515 @@
+<!doctype html>
+<html amp lang="ja">
+
+<head>
+  <meta charset="utf-8">
+  <script async src="https://cdn.ampproject.org/v0.js"></script>
+  <script async custom-element="amp-iframe" src="https://cdn.ampproject.org/v0/amp-iframe-0.1.js"></script>
+  <script async custom-element="amp-story" src="https://cdn.ampproject.org/v0/amp-story-1.0.js"></script>
+  <script async custom-element="amp-script" src="https://cdn.ampproject.org/v0/amp-script-0.1.js"></script>
+  <title>JavaScript binary data handling 101</title>
+  <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+  <link rel="canonical" href=".">
+  <style amp-boilerplate>
+    body {
+      -webkit-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+      -moz-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+      -ms-animation: -amp-start 8s steps(1, end) 0s 1 normal both;
+      animation: -amp-start 8s steps(1, end) 0s 1 normal both
+    }
+
+    @-webkit-keyframes -amp-start {
+      from {
+        visibility: hidden
+      }
+
+      to {
+        visibility: visible
+      }
+    }
+
+    @-moz-keyframes -amp-start {
+      from {
+        visibility: hidden
+      }
+
+      to {
+        visibility: visible
+      }
+    }
+
+    @-ms-keyframes -amp-start {
+      from {
+        visibility: hidden
+      }
+
+      to {
+        visibility: visible
+      }
+    }
+
+    @-o-keyframes -amp-start {
+      from {
+        visibility: hidden
+      }
+
+      to {
+        visibility: visible
+      }
+    }
+
+    @keyframes -amp-start {
+      from {
+        visibility: hidden
+      }
+
+      to {
+        visibility: visible
+      }
+    }
+  </style><noscript>
+    <style amp-boilerplate>
+      body {
+        -webkit-animation: none;
+        -moz-animation: none;
+        -ms-animation: none;
+        animation: none
+      }
+    </style>
+  </noscript>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Code+Pro" rel="stylesheet">
+  <style amp-custom>
+    /* github.com style (c) Vasily Polovnyov <vast@whiteants.net> */
+    .hljs {
+      position: absolute;
+      left: 50%;
+      width: 70vw;
+      display: block;
+      overflow-x: auto;
+      padding: 0.5em;
+      color: #333;
+      background: #eee;
+      font-family: 'Source Code Pro', monospace;
+      padding: 1rem 1.5rem;
+      border: dashed 1px #ccc;
+      transform: translate(-50%);
+    }
+
+    .hljs-comment,
+    .hljs-quote {
+      color: #998;
+      font-style: italic;
+    }
+
+    .hljs-keyword,
+    .hljs-selector-tag,
+    .hljs-subst {
+      color: #333;
+      font-weight: bold;
+    }
+
+    .hljs-number,
+    .hljs-literal,
+    .hljs-variable,
+    .hljs-template-variable,
+    .hljs-tag .hljs-attr {
+      color: #008080;
+    }
+
+    .hljs-string,
+    .hljs-doctag {
+      color: #d14;
+    }
+
+    .hljs-title,
+    .hljs-section,
+    .hljs-selector-id {
+      color: #900;
+      font-weight: bold;
+    }
+
+    .hljs-subst {
+      font-weight: normal;
+    }
+
+    .hljs-type,
+    .hljs-class .hljs-title {
+      color: #458;
+      font-weight: bold;
+    }
+
+    .hljs-tag,
+    .hljs-name,
+    .hljs-attribute {
+      color: #000080;
+      font-weight: normal;
+    }
+
+    .hljs-regexp,
+    .hljs-link {
+      color: #009926;
+    }
+
+    .hljs-symbol,
+    .hljs-bullet {
+      color: #990073;
+    }
+
+    .hljs-built_in,
+    .hljs-builtin-name {
+      color: #0086b3;
+    }
+
+    .hljs-meta {
+      color: #999;
+      font-weight: bold;
+    }
+
+    .hljs-deletion {
+      background: #fdd;
+    }
+
+    .hljs-addition {
+      background: #dfd;
+    }
+
+    .hljs-emphasis {
+      font-style: italic;
+    }
+
+    .hljs-strong {
+      font-weight: bold;
+    }
+
+    /*
+    for slide styling
+    */
+    body {
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    amp-story-page {
+      color: #eee;
+      background: #0c2733ff;
+      text-align: center;
+    }
+
+    h1 {
+      color: #eee;
+      background-color: #0c273399;
+      font-size: 1.98rem;
+      font-weight: normal;
+      margin-bottom: 2.82rem;
+      padding: .5rem 0;
+    }
+
+    p,
+    li {
+      font-size: 1.41rem;
+    }
+
+    a {
+      color: #eee;
+    }
+
+    pre {
+      text-align: left;
+      margin: auto;
+      position: relative;
+    }
+
+    .left {
+      text-align: left;
+    }
+
+    .right {
+      text-align: right;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #555;
+    }
+
+    tr:nth-child(even) {
+      background-color: #666;
+    }
+
+    th,
+    td {
+      padding: 0.5rem;
+    }
+
+    table.center,
+    ul.center {
+      width: 70vw;
+      margin: auto;
+    }
+
+    amp-img {
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <amp-story standalone supports-landscape>
+
+    <amp-story-page id="cover">
+      <amp-story-grid-layer template="thirds">
+        <div grid-area="middle-third">
+          <h1>JavaScript binary data handling 101</h1>
+          <p>chikoski@</p>
+        </div>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <amp-story-page id="tl-dr">
+      <amp-story-grid-layer template="vertical">
+        <h1>TL;DR; DataView is the universal tool for binary data handling</h1>
+        <amp-script layout="container" src="highlight.js">
+          <pre><code class="javascript">const res = await fetch("some.jpg");
+const buffer = await res.arrayBuffer();
+const view = new DataView(buffer);
+
+/*
+ Take 4bytes from the first byte of the buffer 
+ and interprete as unsigned integer 
+*/
+const value =  view.getUint32(0); 
+const value =  view.getUint32(0, true); // Little endian</code></pre>
+        </amp-script>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <amp-story-page id="number-max-safe-interger">
+      <amp-story-grid-layer template="vertical">
+        <h1>52bit</h1>
+        <amp-script layout="container" src="./highlight.js">
+          <pre><code class="javascript">const x = Number.MAX_SAFE_INTEGER;
+console.log(`x + 0 = ${x + 0}`);
+console.log(`x + 1 = ${x + 1}`);
+console.log(`x + 2 = ${x + 2}`);
+</code></pre>
+        </amp-script>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <amp-story-page id="prerequisites">
+      <amp-story-grid-layer template="vertical">
+        <h1>Before starting talk...</h1>
+        <ul class="center left">
+          <li>1 byte = 8 bit</li>
+          <li>0xFF (Hexadecimal; Hex) = 255 (decimal)</li>
+          <li>2 digits in Hex consumes 1 byte</li>
+          <li>4 digits in Hex consumes 2 bytes</li>
+        </ul>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <amp-story-page id="typed-array">
+      <h1>Access via View objects</h1>
+      <amp-script layout="container" src="./highlight.js">
+        <pre><code class="javascript">const buffer = new ArrayBuffer(4);
+const u32array = new Uint32Array(buffer);
+const u16array = new Uint16Array(buffer);
+const u8array = new Uint8Array(buffer);
+
+console.log(`u32array.length = ${u32array.length}`);
+console.log(`u16array.length = ${u1yarray.length}`);
+console.log(`u8array.length = ${u8array.length}`);</code></pre>
+      </amp-script>
+    </amp-story-page>
+
+    <amp-story-page id="endian">
+      <h1>Endian / byte order</h1>
+      <amp-script layout="container" src="./highlight.js">
+        <pre><code class="javascript">const buffer = new ArrayBuffer(4);
+const u32array = new Uint32Array(buffer);
+const u8array = new Uint8Array(buffer);
+      
+u8array[0] = 0x00;
+u8array[1] = 0x00;
+u8array[2] = 0xFF;
+u8array[3] = 0xFF;
+  
+const value = u32array[0];
+console.log(`value = ${value.toString(16)}`);</code></pre>
+      </amp-script>
+    </amp-story-page>
+
+    <amp-story-page id="bit-operator-intersection">
+      <h1>Bit operator: intersection</h1>
+      <amp-script layout="container" src="./highlight.js">
+        <pre><code class="javascript">const READ = 0b100;
+const WRITE = 0b010;
+const EXECUTE = 0b001;
+  
+const flag = 5;
+console.log(`Can read?: ${flag & READ != 0}`);
+console.log(`Can write?: ${flag & WRITE != 0}`);
+console.log(`Can execute?: ${flag & EXECUTE != 0}`);</code></pre>
+      </amp-script>
+    </amp-story-page>
+
+    <amp-story-page id="bit-operator-union">
+      <h1>Bit operator: union</h1>
+      <amp-script layout="container" src="./highlight.js">
+        <pre><code class="javascript">const READ = 0b100;
+const WRITE = 0b010;
+const EXECUTE = 0b001;
+      
+const flag = READ | EXECUTE;
+console.log(`Can read?: ${flag & READ != 0}`);
+console.log(`Can write?: ${flag & WRITE != 0}`);
+console.log(`Can execute?: ${flag & EXECUTE != 0}`);</code></pre>
+      </amp-script>
+    </amp-story-page>
+
+    <amp-story-page id="bit-operator-shfit">
+      <h1>Bit operator: shift</h1>
+      <amp-script layout="container" src="./highlight.js">
+        <pre><code class="javascript">const dimension = {
+  width: 240,
+  height: 180        
+};
+const code = dimension.width & 8 | dimension.height;
+const width = code &; 0xFF;
+const height = code >> 8;</code></pre>
+      </amp-script>
+    </amp-story-page>
+
+    <amp-story-page id="signed-integer">
+      <h1>Signed integer</h1>
+      <amp-script layout="container" src="./highlight.js">
+        <pre><code class="javascript">const buffer = new ArrayBuffer(4);
+const u8array = new Uint8Array(buffer);
+const i8array = new Int8Array(buffer);
+const u32array = new Uint32Array(buffer);
+const i32array = new Int32Array(buffer);
+      
+u8array[0] = 0x00;
+u8array[1] = 0x00;
+u8array[2] = 0xFF;
+u8array[3] = 0xFF;
+  
+console.log(`u8array[3] = ${u8array[3]} / i8array[3] = ${i8array[3]}`);
+console.log(`u32array[0] = ${u32array[0} / i32array[0] = ${i32array[0]}`);</code></pre>
+      </amp-script>
+    </amp-story-page>
+
+    <amp-story-page id="bit-operation-over-signed-integer">
+      <h1>Signed integer and bit operation</h1>
+      <amp-script layout="container" src="./highlight.js">
+        <pre><code class="javascript">const rgba = [255, 192, 192, 255];
+const code = rgba[0] << 24 | rgba[1] << 16 | rgba[2] << 8 | rgba[3];
+
+const decoded = [code >> 24, code >> 16 & 0xFF, code >> 8 & 0xFF, code & 0xFF];
+// [-1, 192, 192, 255]
+
+const decodedv2 = [code >> 24 & 0xFF, code >> 16 & 0xFF, code >> 8 & 0xFF, code & 0xFF];
+const decodedv3 = [code >>> 24, code >>> 16 & 0xFF, code >>> 8 & 0xFF, code & 0xFF];
+        </code></pre>
+      </amp-script>
+    </amp-story-page>
+
+    <amp-story-page id="exif">
+      <amp-story-grid-layer template="fill">
+        <amp-img src="assets/exif.png" width="1440" height="822" layout="responsive"></amp-img>
+      </amp-story-grid-layer>
+      <amp-story-grid-layer template="vertical">
+        <h1>Exchangable Image Format: EXIF</h1>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <amp-story-page id="jpg-file-format">
+      <amp-story-grid-layer template="vertical">
+        <h1>JPEG File Interchange Format (JFIF)</h1>
+        <amp-img src="assets/jpg-exif.svg" width="1280" height="768" layout="responsive"></amp-img>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <amp-story-page id="segments">
+      <amp-story-grid-layer template="vertical">
+        <h1>Segments</h1>
+        <table class="center">
+          <tr>
+            <th>Name</th>
+            <th>Marker Identifier</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>SOI</td>
+            <td><code>0xFFDB</code></td>
+            <td>Sart of iamge</td>
+          </tr>
+          <tr>
+            <td>DQT</td>
+            <td><code>0xFFDB</code></td>
+            <td>Quantization table</td>
+          </tr>
+          <tr>
+            <td>SOF0</td>
+            <td><code>0xFFc0</code></td>
+            <td>Start of frame</td>
+          </tr>
+          <tr>
+            <td>DHT</td>
+            <td><code>0xFFc4</code></td>
+            <td>Huffman table</td>
+          </tr>
+          <tr>
+            <td>SOS</td>
+            <td><code>0xFFDA</code></td>
+            <td>Sart of scan</td>
+          </tr>
+          <tr>
+            <td>EOI</td>
+            <td><code>0xFFC0</code></td>
+            <td>End of iamge</td>
+          </tr>
+          <tr>
+            <td>APP0</td>
+            <td><code>0xFFE0</code></td>
+            <td>JFIF application segment</td>
+          </tr>
+          <tr>
+            <td>APP1</td>
+            <td><code>0xFFE1</code></td>
+            <td>EXIF</td>
+          </tr>
+        </table>
+      </amp-story-grid-layer>
+    </amp-story-page>
+    <amp-story-page id="segment">
+      <amp-story-grid-layer template="vertical">
+        <h1>Segment</h1>
+        <table class="center">
+          <tr>
+            <th>Offset(bytes)</th>
+            <th>Length(bytes)</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>2</td>
+            <td>Marker</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>2</td>
+            <td>Length</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>N</td>
+            <td>Segment data</td>
+          </tr>
+        </table>
+      </amp-story-grid-layer>
+    </amp-story-page>
+
+    <amp-story-bookend src="assets/bookend.json" layout="nodisplay"></amp-story-bookend>
+  </amp-story>
+</body>
+
+</html>
