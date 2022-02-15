@@ -27,7 +27,6 @@ _paginate: false
 % wasm-pack new your_project
 % cd your_project
 % code .
-% wasm-pack test
 % wasm-pack build
 % wasm-pack pack
 ~~~
@@ -175,7 +174,7 @@ pub fn add(a: u32, b: u32) -> u32 {
 - `wasm-pack pack` で npm パッケージを作成
 
 ```sh
-% wasm-pack build
+% wasm-pack build -t web
 % wasm-pack pack
 
 % ls pkg/*.tgz
@@ -185,14 +184,15 @@ pkg/hello-world-0.1.0.tgz
 # アプリへの組み込み
 
 - 作成した tgz ファイルを Dependencies に追加する
-  - `npm -i tgz ファイル` でDpendencies への追加できる
-  - c.f. [npm-install](https://docs.npmjs.com/cli/v8/commands/npm-install)
-- 後は通常の npm モジュールのように組み込める
+  - 初期化関数が default export に設定されている
+  - Rust で定義した関数は named export に設定されている
+- node_modules/モジュール名/*.wasm を適切に配置
 
 ```js
-import {add} from "hello-world"
+import {add}, helloWorld from "hello-world"
 
-function main(){
+async function main(){
+  await helloWorld("配置した Wasm ファイルの URL");
   val sum = add(1, 2);
   console.log(`1 + 2 = ${sum}`);
 }
@@ -206,6 +206,8 @@ function main(){
    - インスタンス化時に import を適切に設定する
    - JS <-> Rust のデータ変換を行う
 - [web_sys](https://rustwasm.github.io/wasm-bindgen/web-sys/index.html) クレートはこれらを上手に隠蔽してくれる
+  - [fetch の使用例](https://rustwasm.github.io/wasm-bindgen/examples/fetch.html)
+  - JS の標準ライブラリは [js_sys](https://docs.rs/js-sys/latest/js_sys/) として提供される
 
 # web_sys: Cargo.toml へ依存関係を追加
 
