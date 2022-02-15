@@ -1,0 +1,21 @@
+{
+  "name": "hello-world-user",
+  "version": "0.1.0",
+  "description": "",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "dev": "rollup -c rollup.config.js -w"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "rollup": "^2.67.2",
+    "rollup-plugin-serve": "^1.1.0",
+    "typescript": "^4.5.5"
+  },
+  "dependencies": {
+    "hello-world": "file:../hello-world/pkg/hello-world-0.1.0.tgz"
+  }
+}
