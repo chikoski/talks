@@ -123,8 +123,7 @@ val anotherSum = add(<span class="hljs-number">3</span>, <span class="hljs-numbe
 <li>仕様への対応</li>
 </ul>
 </li>
-<li>ブラウザーでの利用を考えた場合の有力候補：<br />
-<a href="https://emscripten.org//">C/C++</a>、<a href="https://rustwasm.github.io/book/">Rust</a>、<a href="https://www.assemblyscript.org/">AssemblyScript</a>, <a href="https://docs.microsoft.com/ja-jp/aspnet/core/blazor/host-and-deploy/webassembly?view=aspnetcore-6.0">C#</a></li>
+<li><a href="https://emscripten.org//">C/C++</a>、<a href="https://rustwasm.github.io/book/">Rust</a>、<a href="https://www.assemblyscript.org/">AssemblyScript</a>, <a href="https://docs.microsoft.com/ja-jp/aspnet/core/blazor/host-and-deploy/webassembly?view=aspnetcore-6.0">C#</a> は有力な候補</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="9" data-paginate="true" data-theme="gaia" data-heading-divider="1" data-marpit-pagination="9" data-marpit-pagination-total="19" style="--paginate:true;--theme:gaia;--heading-divider:1;">
@@ -142,11 +141,11 @@ val anotherSum = add(<span class="hljs-number">3</span>, <span class="hljs-numbe
 <li>必要なツール：<a href="https://rustup.rs/">Rust の開発環境</a>、<a href="https://nodejs.org/">Node.js / npm</a></li>
 </ul>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-marpit-fragments="2" data-paginate="true" data-theme="gaia" data-heading-divider="1" data-marpit-pagination="10" data-marpit-pagination-total="19" style="--paginate:true;--theme:gaia;--heading-divider:1;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="10" data-paginate="true" data-theme="gaia" data-heading-divider="1" data-marpit-pagination="10" data-marpit-pagination-total="19" style="--paginate:true;--theme:gaia;--heading-divider:1;">
 <h1>wasm-pack: プロジェクトの作成</h1>
 <ul>
-<li data-marpit-fragment="1"><code>wasm-pack new プロジェクト名</code> でプロジェクトが作成される</li>
-<li data-marpit-fragment="2">ソースコードは src フォルダにある</li>
+<li><code>wasm-pack new プロジェクト名</code> でプロジェクトが作成される</li>
+<li>ソースコードは src フォルダにある</li>
 </ul>
 <pre><code class="language-sh"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap>% wasm-pack new hello_world
 [INFO]: <img class="emoji" draggable="false" alt="⬇" src="https://twemoji.maxcdn.com/2/svg/2b07.svg" data-marp-twemoji=""/>  Installing cargo-generate...
@@ -160,11 +159,11 @@ val anotherSum = add(<span class="hljs-number">3</span>, <span class="hljs-numbe
 Cargo.toml  LICENSE_APACHE  LICENSE_MIT  README.md  src  tests
 </span></span></foreignObject></svg></code></pre>
 </section>
-</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-marpit-fragments="2" data-paginate="true" data-theme="gaia" data-heading-divider="1" data-marpit-pagination="11" data-marpit-pagination-total="19" style="--paginate:true;--theme:gaia;--heading-divider:1;">
+</foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="11" data-paginate="true" data-theme="gaia" data-heading-divider="1" data-marpit-pagination="11" data-marpit-pagination-total="19" style="--paginate:true;--theme:gaia;--heading-divider:1;">
 <h1>エキスポートする関数の定義</h1>
 <ul>
-<li data-marpit-fragment="1">src/lib.rs に関数を定義する</li>
-<li data-marpit-fragment="2">関数をエキスポートするには
+<li>src/lib.rs に関数を定義する</li>
+<li>関数をエキスポートするには
 <ol>
 <li>関数を定義する</li>
 <li>wasm-bindgen プラグマをつける</li>
@@ -199,15 +198,11 @@ pkg/hello-world-0.1.0.tgz
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="13" data-paginate="true" data-theme="gaia" data-heading-divider="1" data-marpit-pagination="13" data-marpit-pagination-total="19" style="--paginate:true;--theme:gaia;--heading-divider:1;">
 <h1>アプリへの組み込み</h1>
 <ul>
-<li>作成した tgz ファイルを Dependencies に追加する
-<ul>
+<li>作成した tgz ファイルを Dependencies に追加する</li>
 <li>初期化関数が default export に設定されている</li>
-<li>Rust で定義した関数は named export に設定されている</li>
+<li>node_modules/モジュール名/*.wasm を適切に配置する</li>
 </ul>
-</li>
-<li>node_modules/モジュール名/*.wasm を適切に配置</li>
-</ul>
-<pre><code class="language-js"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap><span class="hljs-keyword">import</span> {add}, helloWorld <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;hello-world&quot;</span>
+<pre><code class="language-js"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap><span class="hljs-keyword">import</span> helloWorld, {add} <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;hello-world&quot;</span>
 
 <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">main</span>(<span class="hljs-params"></span>)</span>{
   <span class="hljs-keyword">await</span> helloWorld(<span class="hljs-string">&quot;配置した Wasm ファイルの URL&quot;</span>);
@@ -227,19 +222,13 @@ pkg/hello-world-0.1.0.tgz
 <li>JS &lt;-&gt; Rust のデータ変換を行う</li>
 </ul>
 </li>
-<li><a href="https://rustwasm.github.io/wasm-bindgen/web-sys/index.html">web_sys</a> クレートはこれらを上手に隠蔽してくれる
-<ul>
-<li><a href="https://rustwasm.github.io/wasm-bindgen/examples/fetch.html">fetch の使用例</a></li>
-<li>JS の標準ライブラリは <a href="https://docs.rs/js-sys/latest/js_sys/">js_sys</a> として提供される</li>
-</ul>
-</li>
+<li><a href="https://rustwasm.github.io/wasm-bindgen/web-sys/index.html">web_sys</a> クレートはこれらを隠蔽する (e.g. <a href="https://rustwasm.github.io/wasm-bindgen/examples/fetch.html">fetch の使用</a>)</li>
 </ul>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 1280 720"><foreignObject width="1280" height="720"><section id="15" data-paginate="true" data-theme="gaia" data-heading-divider="1" data-marpit-pagination="15" data-marpit-pagination-total="19" style="--paginate:true;--theme:gaia;--heading-divider:1;">
 <h1>web_sys: Cargo.toml へ依存関係を追加</h1>
 <ul>
 <li>Cargo.toml に web_sys を<a href="https://doc.rust-lang.org/cargo/guide/dependencies.html">依存するクレートとして追加</a>する</li>
-<li><a href="https://rustwasm.github.io/wasm-bindgen/api/web_sys/">web_sys</a> は大きい</li>
 <li><a href="https://doc.rust-lang.org/cargo/reference/features.html">feature flag</a> に列挙された機能だけが利用できる</li>
 </ul>
 <pre><code class="language-toml"><svg data-marp-fitting="svg" data-marp-fitting-code><foreignObject><span data-marp-fitting-svg-content><span data-marp-fitting-svg-content-wrap><span class="hljs-section">[dependencies.web-sys]</span>

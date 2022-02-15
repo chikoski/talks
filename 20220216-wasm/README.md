@@ -120,8 +120,7 @@ _footer: https://unsplash.com/photos/7C8c-7fwk34
   - バイナリーサイズ
   - API への対応
   - 仕様への対応
-- ブラウザーでの利用を考えた場合の有力候補：
-[C/C++](https://emscripten.org//)、[Rust](https://rustwasm.github.io/book/)、[AssemblyScript](https://www.assemblyscript.org/), [C#](https://docs.microsoft.com/ja-jp/aspnet/core/blazor/host-and-deploy/webassembly?view=aspnetcore-6.0)
+- [C/C++](https://emscripten.org//)、[Rust](https://rustwasm.github.io/book/)、[AssemblyScript](https://www.assemblyscript.org/), [C#](https://docs.microsoft.com/ja-jp/aspnet/core/blazor/host-and-deploy/webassembly?view=aspnetcore-6.0) は有力な候補
 
 # Rust でのWeb アプリ開発のはじめかた
 
@@ -135,8 +134,8 @@ _footer: https://unsplash.com/photos/7C8c-7fwk34
 
 # wasm-pack: プロジェクトの作成
 
-* `wasm-pack new プロジェクト名` でプロジェクトが作成される
-* ソースコードは src フォルダにある
+- `wasm-pack new プロジェクト名` でプロジェクトが作成される
+- ソースコードは src フォルダにある
 
 ~~~sh
 % wasm-pack new hello_world
@@ -153,8 +152,8 @@ Cargo.toml  LICENSE_APACHE  LICENSE_MIT  README.md  src  tests
 
 # エキスポートする関数の定義
 
-* src/lib.rs に関数を定義する
-* 関数をエキスポートするには
+- src/lib.rs に関数を定義する
+- 関数をエキスポートするには
   1. 関数を定義する
   2. wasm-bindgen プラグマをつける
   3. pub キーワードをつける
@@ -184,12 +183,11 @@ pkg/hello-world-0.1.0.tgz
 # アプリへの組み込み
 
 - 作成した tgz ファイルを Dependencies に追加する
-  - 初期化関数が default export に設定されている
-  - Rust で定義した関数は named export に設定されている
-- node_modules/モジュール名/*.wasm を適切に配置
+- 初期化関数が default export に設定されている
+- node_modules/モジュール名/*.wasm を適切に配置する
 
 ```js
-import {add}, helloWorld from "hello-world"
+import helloWorld, {add} from "hello-world"
 
 async function main(){
   await helloWorld("配置した Wasm ファイルの URL");
@@ -205,14 +203,11 @@ async function main(){
    - API をラップした関数の用意
    - インスタンス化時に import を適切に設定する
    - JS <-> Rust のデータ変換を行う
-- [web_sys](https://rustwasm.github.io/wasm-bindgen/web-sys/index.html) クレートはこれらを上手に隠蔽してくれる
-  - [fetch の使用例](https://rustwasm.github.io/wasm-bindgen/examples/fetch.html)
-  - JS の標準ライブラリは [js_sys](https://docs.rs/js-sys/latest/js_sys/) として提供される
+- [web_sys](https://rustwasm.github.io/wasm-bindgen/web-sys/index.html) クレートはこれらを隠蔽する (e.g. [fetch の使用](https://rustwasm.github.io/wasm-bindgen/examples/fetch.html))
 
 # web_sys: Cargo.toml へ依存関係を追加
 
 - Cargo.toml に web_sys を[依存するクレートとして追加](https://doc.rust-lang.org/cargo/guide/dependencies.html)する
-- [web_sys](https://rustwasm.github.io/wasm-bindgen/api/web_sys/) は大きい
 - [feature flag](https://doc.rust-lang.org/cargo/reference/features.html) に列挙された機能だけが利用できる
 
 ```toml
