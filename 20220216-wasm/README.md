@@ -16,6 +16,13 @@ _class: lead
 _paginate: false
 -->
 
+# https://bit.ly/rust-wasm-101
+
+<!--
+_class: lead
+_pagenate: false
+-->
+
 # TL;DR;
 
 - 既存のソフトウェア資産を使いまわせるのが WebAssembly の魅力
@@ -54,15 +61,15 @@ _footer: The image is cited from https://rsms.me/wasm-intro
 
 
 ``` javascript
-val source = await fetch("wasm-module.wasm");
-val imports = {
+const source = await fetch("wasm-module.wasm");
+const imports = {
     debug: (number) => console.log(number),
 };
-val wasmModule = await WebAssembly.instantiateStreaming({imports}, source);
+const wasmModule = await WebAssembly.instantiateStreaming({imports}, source);
 
-val sum = wasmModule.exports.add(1, 2);
-val add = wasmModule.exports.add;
-val anotherSum = add(3, 4);
+const sum = wasmModule.exports.add(1, 2);
+const add = wasmModule.exports.add;
+const anotherSum = add(3, 4);
 ```
 
 # 利用目的 #1: エコシステム
@@ -191,7 +198,7 @@ import helloWorld, {add} from "hello-world"
 
 async function main(){
   await helloWorld("配置した Wasm ファイルの URL");
-  val sum = add(1, 2);
+  const sum = add(1, 2);
   console.log(`1 + 2 = ${sum}`);
 }
 ```
