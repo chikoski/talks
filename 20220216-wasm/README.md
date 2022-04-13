@@ -159,11 +159,9 @@ Cargo.toml  LICENSE_APACHE  LICENSE_MIT  README.md  src  tests
 
 # エキスポートする関数の定義
 
-- src/lib.rs に関数を定義する
-- 関数をエキスポートするには
-  1. 関数を定義する
-  2. wasm-bindgen プラグマをつける
-  3. pub キーワードをつける
+1. src/lib.rs に関数を定義する
+2. wasm-bindgen プラグマをつける
+3. pub キーワードをつける
 
 ```rust
 #[wasm_bindgen]
