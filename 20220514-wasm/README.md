@@ -1,12 +1,12 @@
 ---
 marp: true
-title: WebAssembly 最近のトレンド
+title: WebAssembly 最近の話題
 theme: gaia
 paginate: true
 headingDivider: 1
 ---
 
-# WebAssembly 最近のトレンド
+# WebAssembly 最近の話題
 
 @chikoski
 
@@ -34,7 +34,6 @@ _footer: Photo by [jana müller]("https://unsplash.com/@janamxe?utm_source=unspl
 -->
 
 
-
 # Amazon Prime Video  
 
 - ドングルやSTB向けアプリ
@@ -48,9 +47,24 @@ _footer: Photo by [jana müller]("https://unsplash.com/@janamxe?utm_source=unspl
 ![bg right:35% fit](./assets/amazom-prime-video.svg)
 
 <!--
-_footer: cited from [How Prime Video updates its app for more than 8,000 device types](https://www.amazon.science/blog/how-prime-video-updates-its-app-for-more-than-8-000-device-types)
+_footer: The diagram is cited from [How Prime Video updates its app for more than 8,000 device types](https://www.amazon.science/blog/how-prime-video-updates-its-app-for-more-than-8-000-device-types)
 -->
 
+
+# インタプリター
+
+- 背景
+  - Start time performance
+  - [セキュリティ](https://microsoftedge.github.io/edgevr/posts/Super-Duper-Secure-Mode/)  
+  - [制限された資源下での利用]()
+- 例：[JSC](https://www.youtube.com/watch?v=1v4wPoMskfo) / [DrumBrake](https://docs.google.com/document/d/1OIJ4Sv2XfTlI5NmTS1QI8v8wPL0LUT5s1W2D9OlJmMc/preview#) / [wasm3](https://github.com/wasm3/wasm3)
+
+![bg right:40% auto](./assets/content-process-vlun-by-type.png)
+
+<!--
+_footer: "The bar chart is cited from [an analysis by Mozilla]( https://docs.google.com/spreadsheets/d/1FslzTx4b7sKZK4BR-DpO45JZNB1QZF9wuijK3OxBwr0/edit#gid=865365202)"
+
+-->
 
 # Features
 
@@ -59,17 +73,25 @@ _footer: cited from [How Prime Video updates its app for more than 8,000 device 
 - In-progress proposals
   - Relaxed SIMD
   - ESM integration
-  - Custome annotations
+  - Custom annotations
 
 ![bg right:50% contain](./assets/compatiblity-table.png)
 
-# インタプリター
+# ESM integration
 
-- 文脈
-  - (Cold) start time
-  - セキュリティ
-  - 組み込み
-- 事例
-  - JSC
-  - [DrumBrake](https://docs.google.com/document/d/1OIJ4Sv2XfTlI5NmTS1QI8v8wPL0LUT5s1W2D9OlJmMc/preview#)
-  - [wasm3](https://github.com/wasm3/wasm3)
+- Wasm を JS のモジュールグラフに追加する仕様
+- Wasm のロードを ESM モジュールのロードの仕様に合わせる
+
+```JS
+//　ESM integrateion 以前のやり方
+const stream = fetch("./myModule.wasm");
+const wasm = await WebAssembly.instantiateStreaming(stream, {});
+wasm.instance.exports.foo();
+
+// ESM integration 以降のやり方。
+import { foo } from "./myModule.wasm";
+foo();
+```
+<!--
+_footer: The sample codes are cited from [WebAssembly ES Module Integration](https://docs.google.com/presentation/d/12cZ3FQizIJ7GGhegdSzRjnGp2l-gFsTlXfvUsAdN2No/edit#slide=id.p)
+-->
