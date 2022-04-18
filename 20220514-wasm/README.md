@@ -46,10 +46,8 @@ _footer: Photo by [Ostap Senyuk](https://unsplash.com/@kintecus?utm_source=unspl
 ![bg right:35% fit](./assets/amazom-prime-video.svg)
 
 <!--
-_footer: The diagram is cited from [How Prime Video updates its app for more than 8,000 device types](https://www.amazon.science/blog/how-prime-video-updates-its-app-for-more-than-8-000-device-types)
+_footer: c.f. [How Prime Video updates its app for more than 8,000 device types](https://www.amazon.science/blog/how-prime-video-updates-its-app-for-more-than-8-000-device-types)
 -->
-
-
 
 # 仕様 / 機能
 
@@ -62,6 +60,10 @@ _footer: The diagram is cited from [How Prime Video updates its app for more tha
   - etc
 
 ![bg right:50% contain](./assets/compatiblity-table.png)
+
+<!--
+_footer: The table came from [WebAssembly.org/roadmap](https://webassembly.org/roadmap/).
+-->
 
 # ES モジュールとの統合
 
@@ -79,7 +81,7 @@ import { foo } from "./myModule.wasm";
 foo();
 ```
 <!--
-_footer: The sample codes are cited from [WebAssembly ES Module Integration](https://docs.google.com/presentation/d/12cZ3FQizIJ7GGhegdSzRjnGp2l-gFsTlXfvUsAdN2No/edit#slide=id.p)
+_footer: The sample codes came from [WebAssembly ES Module Integration](https://docs.google.com/presentation/d/12cZ3FQizIJ7GGhegdSzRjnGp2l-gFsTlXfvUsAdN2No/edit#slide=id.p)
 -->
 
 # インタプリター
@@ -93,5 +95,5 @@ _footer: The sample codes are cited from [WebAssembly ES Module Integration](htt
 ![bg right:40% auto](./assets/content-process-vlun-by-type.png)
 
 <!--
-_footer: "The bar chart is cited from [an analysis by Mozilla]( https://docs.google.com/spreadsheets/d/1FslzTx4b7sKZK4BR-DpO45JZNB1QZF9wuijK3OxBwr0/edit#gid=865365202)"
+_footer: "The bar chart came from [an analysis by Mozilla]( https://docs.google.com/spreadsheets/d/1FslzTx4b7sKZK4BR-DpO45JZNB1QZF9wuijK3OxBwr0/edit#gid=865365202)"
 -->
