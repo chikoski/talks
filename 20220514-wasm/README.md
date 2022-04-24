@@ -1,12 +1,12 @@
 ---
 marp: true
-title: WebAssembly 最近の話題
+title: WebAssembly 最近の話題から
 theme: gaia
 paginate: true
 headingDivider: 1
 ---
 
-# WebAssembly 最近の話題
+# WebAssembly 最近の話題から
 
 @chikoski
 
@@ -49,15 +49,15 @@ _footer: Photo by [Ostap Senyuk](https://unsplash.com/@kintecus?utm_source=unspl
 _footer: c.f. [How Prime Video updates its app for more than 8,000 device types](https://www.amazon.science/blog/how-prime-video-updates-its-app-for-more-than-8-000-device-types)
 -->
 
-# 仕様 / 機能
+# 仕様の進化
 
-- 初期のもの (MVP)
-- 追加されたもの
-- 議論進行中のもの
-  - Relaxed SIMD
-  - ESM integration
-  - Custom annotations
-  - etc
+- 種別
+  - 初期のもの (MVP)
+  - 追加されたもの
+  - 議論進行中のもの
+- Feature detection
+  - [wasm-feature-dect](https://github.com/GoogleChromeLabs/wasm-feature-detect)
+  - [Feature Detection Proposal](https://github.com/WebAssembly/feature-detection/blob/main/proposals/feature-detection/Overview.md)
 
 ![bg right:50% contain](./assets/compatiblity-table.png)
 
@@ -65,10 +65,10 @@ _footer: c.f. [How Prime Video updates its app for more than 8,000 device types]
 _footer: The table came from [WebAssembly.org/roadmap](https://webassembly.org/roadmap/).
 -->
 
-# ES モジュールとの統合
+# ESM integration: 使い勝手の向上
 
 - Wasm インスタンスを JS のモジュールとして扱う
-- Wasm のロードを ESM モジュールのロードの仕様に合わせる
+- Wasm のロードを ESM のロードの仕様に合わせる
 
 ```JS
 //　従来のロード
