@@ -20,6 +20,14 @@ _class: lead
 _paginate: false
 -->
 
+# WebAssembly 2.0 workging drafts
+
+![WebAssembly 2.0 First public working drafts](./assets/wasm2.0.png)
+
+# Specs
+
+![](./assets/compatiblity-table.png)
+
 # AngryBots
 
 ![bg](./assets/angrybots.png)
