@@ -20,6 +20,15 @@ _class: lead
 _paginate: false
 -->
 
+# AngryBots
+
+![bg](./assets/angrybots.png)
+
+<!--
+_color: white
+_footer: https://beta.unity3d.com/jonas/AngryBots/
+-->
+
 # 安全性と柔軟性の両立
 
 - 安全性
@@ -73,6 +82,14 @@ _footer: c.f. [Building a secure by default, composable future for WebAssembly](
 _footer: c.f. [How Prime Video updates its app for more than 8,000 device types](https://www.amazon.science/blog/how-prime-video-updates-its-app-for-more-than-8-000-device-types)
 -->
 
+
+# Wasm module を組み合わせて使う
+
+<!--
+_class: lead
+_paginate: false
+-->
+
 # ESM integration: 使い勝手の向上
 
 - Wasm インスタンスを JS のモジュールとして扱う
@@ -92,12 +109,6 @@ foo();
 _footer: The sample codes came from [WebAssembly ES Module Integration](https://docs.google.com/presentation/d/12cZ3FQizIJ7GGhegdSzRjnGp2l-gFsTlXfvUsAdN2No/edit#slide=id.p)
 -->
 
-# Wasm module を組み合わせて使う
-
-<!--
-_class: lead
-_paginate: false
--->
 
 # Component model
 
