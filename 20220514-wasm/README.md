@@ -6,26 +6,29 @@ paginate: true
 headingDivider: 1
 ---
 
-# WebAssembly 最近の話題から
+# WebAssembly 最近の話題より
 
 @chikoski
 
 2022/05/14 TechFeed Conference 2022
 bit.ly/techfeed2022-wasm-01
 
+![bg](./assets/background.png)
+
 <!--
 _class: lead
 _paginate: false
 -->
 
-# Wasm: 柔軟性と安全性
+# 安全性と柔軟性の両立
 
-- 柔軟性
-  - プログラミング言語やツールを選べる
-  - 差し替えが（比較的）容易
 - 安全性
-  - 実行コードの生成
-  - サンドボックス化した実行環境
+  - サンドボックス化された実行環境
+  - 3rd party code の実行
+- 柔軟性
+  - プログラミング言語選択の柔軟性
+  - ツール選択の柔軟性
+  - モジュールの更新が（比較的）容易
 
 ![bg right:30%](./assets/ostap-senyuk-7C8c-7fwk34-unsplash.jpg)
 
@@ -33,6 +36,26 @@ _paginate: false
 _footer: Photo by [Ostap Senyuk](https://unsplash.com/@kintecus?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com/)
 -->
 
+# Shopify App
+
+![bg](./assets/shopify-app-getting-started.png)
+
+<!-- 
+_footer: c.f. [What's a Shopify app?](https://shopify.dev/apps/getting-started)
+-->
+
+# RLBox
+
+- [ライブラリ向けサンドボックス]((https://github.com/PLSysSec/rlbox))
+- プロセス分離以外の選択肢
+- [Firfox 95 以降で利用](https://hacks.mozilla.org/2020/02/securing-firefox-with-webassembly/)
+- [Retrofitting Fine Grain Isolation in the Firefox Renderer](https://arxiv.org/abs/2003.00572)
+
+![bg right:30% fit](./assets/05-02-protection-update.png)
+
+<!--
+_footer: c.f. [Building a secure by default, composable future for WebAssembly](https://bytecodealliance.org/articles/announcing-the-bytecode-alliance)
+-->
 
 # Amazon Prime Video  
 
@@ -48,22 +71,6 @@ _footer: Photo by [Ostap Senyuk](https://unsplash.com/@kintecus?utm_source=unspl
 
 <!--
 _footer: c.f. [How Prime Video updates its app for more than 8,000 device types](https://www.amazon.science/blog/how-prime-video-updates-its-app-for-more-than-8-000-device-types)
--->
-
-# 仕様の進化
-
-- 種別
-  - 初期のもの (MVP)
-  - 追加されたもの
-  - 議論進行中のもの
-- Feature detection
-  - [wasm-feature-dect](https://github.com/GoogleChromeLabs/wasm-feature-detect)
-  - [Feature Detection Proposal](https://github.com/WebAssembly/feature-detection/blob/main/proposals/feature-detection/Overview.md)
-
-![bg right:50% contain](./assets/compatiblity-table.png)
-
-<!--
-_footer: The table came from [WebAssembly.org/roadmap](https://webassembly.org/roadmap/).
 -->
 
 # ESM integration: 使い勝手の向上
@@ -85,16 +92,30 @@ foo();
 _footer: The sample codes came from [WebAssembly ES Module Integration](https://docs.google.com/presentation/d/12cZ3FQizIJ7GGhegdSzRjnGp2l-gFsTlXfvUsAdN2No/edit#slide=id.p)
 -->
 
-# インタプリター
-
-- 背景
-  - [起動時間の短縮](https://docs.google.com/presentation/d/1QnlLXHaySUF3lJhQsOgMmsE4ynZiZx6kBMk4OAML-mY/edit#slide=id.p)
-  - [セキュリティ](https://microsoftedge.github.io/edgevr/posts/Super-Duper-Secure-Mode/) / JIT 不可の環境  
-  - 制限された資源下での利用
-- 例：[JSC](https://www.youtube.com/watch?v=1v4wPoMskfo) / [DrumBrake](https://docs.google.com/document/d/1OIJ4Sv2XfTlI5NmTS1QI8v8wPL0LUT5s1W2D9OlJmMc/preview#) / [wasm3](https://github.com/wasm3/wasm3)
-
-![bg right:40% auto](./assets/content-process-vlun-by-type.png)
+# Wasm module を組み合わせて使う
 
 <!--
-_footer: "The bar chart came from [an analysis by Mozilla]( https://docs.google.com/spreadsheets/d/1FslzTx4b7sKZK4BR-DpO45JZNB1QZF9wuijK3OxBwr0/edit#gid=865365202)"
+_class: lead
+_paginate: false
+-->
+
+# Component model
+
+- Use cases: host embedding component, component composition
+
+```LISP
+(component
+  (module $A
+    (func (export "one") (result i32) (i32.const 1))
+  )
+  (module $B
+    (func (import "a" "one") (result i32))
+  )
+  (instance $a (instantiate (module $A)))
+  (instance $b (instantiate (module $B) (with "a" (instance $a))))
+)
+```
+
+<!--
+_footer: The sample code is cited from [Component Model Explainer](https://github.com/WebAssembly/component-model/blob/main/design/mvp/Explainer.md)
 -->
